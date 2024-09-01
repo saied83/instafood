@@ -30,3 +30,7 @@ a {
     opacity: 1;
   }
 }
+
+.container {
+  position: relative;
+}

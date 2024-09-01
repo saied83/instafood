@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { assets } from "../../assets";
 import { Link, useNavigate } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ setShowLogin }) => {
   const navigate = useNavigate();
   const [menu, setMenu] = useState("home");
   const [scrolled, setScrolled] = useState(false);
@@ -68,7 +68,14 @@ const Navbar = () => {
           <img src={assets.basket_icon} alt="" />
           <div className="dot"></div>
         </div>
-        <button>Login </button>
+        <button
+          onClick={() => {
+            setShowLogin(true);
+            window.scrollTo(0, 0);
+          }}
+        >
+          Login{" "}
+        </button>
       </div>
     </div>
   );
