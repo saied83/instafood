@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "./FoodItem.css";
 import { assets } from "../../assets";
 import { useStoreContext } from "../../context/StoreContext";

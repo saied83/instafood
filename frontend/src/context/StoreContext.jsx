@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { food_list } from "../assets";
 
-export const StoreContext = createContext();
+const StoreContext = createContext();
 
-export const useStoreContext = () => {
+const useStoreContext = () => {
   return useContext(StoreContext);
 };
 
@@ -11,7 +11,9 @@ const StoreContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(
     JSON.parse(localStorage.getItem("add-to-cart")) || {}
   );
-  localStorage.setItem("add-to-cart", JSON.stringify(cartItems));
+  useEffect(() => {
+    localStorage.setItem("add-to-cart", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (itemId) => {
     if (!cartItems[itemId]) {
@@ -34,4 +36,4 @@ const StoreContextProvider = ({ children }) => {
   );
 };
 
-export default StoreContextProvider;
+export { StoreContextProvider as default, useStoreContext, StoreContext };
