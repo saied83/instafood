@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets";
-import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useStoreContext } from "../../context/StoreContext";
 import toast from "react-hot-toast";
 
