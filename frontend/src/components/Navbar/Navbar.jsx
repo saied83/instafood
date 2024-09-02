@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets";
 import { Link, useNavigate } from "react-router-dom";
+import { useStoreContext } from "../../context/StoreContext";
 
 const Navbar = ({ setShowLogin }) => {
   const navigate = useNavigate();
   const [menu, setMenu] = useState("home");
   const [scrolled, setScrolled] = useState(false);
+  const { getTotalCartAmount } = useStoreContext();
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -40,27 +42,27 @@ const Navbar = ({ setShowLogin }) => {
         >
           Home
         </Link>
-        <a
-          href="#explore-menu"
+        <Link
+          to="/#explore-menu"
           onClick={() => setMenu("menu")}
           className={menu === "menu" ? "active" : ""}
         >
           Menu
-        </a>
-        <a
-          href="#app-download"
+        </Link>
+        <Link
+          to="/#app-download"
           onClick={() => setMenu("mobile-app")}
           className={menu === "mobile-app" ? "active" : ""}
         >
           Mobile-App
-        </a>
-        <a
-          href="#footer"
+        </Link>
+        <Link
+          to="/#footer"
           onClick={() => setMenu("contact-us")}
           className={menu === "contact-us" ? "active" : ""}
         >
           Contact Us
-        </a>
+        </Link>
       </ul>
       <div className="navbar-right">
         <img src={assets.search_icon} alt="" />
@@ -68,7 +70,7 @@ const Navbar = ({ setShowLogin }) => {
           <Link to={"/cart"}>
             <img src={assets.basket_icon} alt="" />
           </Link>
-          <div className="dot"></div>
+          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
         <button
           onClick={() => {
