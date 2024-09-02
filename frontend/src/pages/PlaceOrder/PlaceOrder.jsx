@@ -1,9 +1,15 @@
 import React from "react";
 import "./PlaceOrder.css";
 import { useStoreContext } from "../../context/StoreContext";
+import { useNavigate } from "react-router-dom";
 
 const PlaceOrder = () => {
+  const navigate = useNavigate();
   const { getTotalCartAmount } = useStoreContext();
+  if (getTotalCartAmount() === 0) {
+    navigate("/#explore-menu");
+    return;
+  }
   return (
     <form action="" className="place-order">
       <div className="place-order-left">
