@@ -6,10 +6,11 @@ import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import { useState } from "react";
 import LoginPopUp from "./components/LoginPopUp/LoginPopUp";
+import { Toaster } from "react-hot-toast";
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   return (
-    <>
+    <div id="home">
       {showLogin ? <LoginPopUp setShowLogin={setShowLogin} /> : <></>}
       <Navbar setShowLogin={setShowLogin} />
       <div className="app">
@@ -19,8 +20,10 @@ function App() {
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>
+      <Toaster />
+
       <Footer />
-    </>
+    </div>
   );
 }
 

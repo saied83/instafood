@@ -18,6 +18,10 @@
   cursor: pointer;
 }
 
+.navbar a {
+  cursor: pointer;
+}
+
 .navbar-menu {
   display: flex;
   list-style: none;
@@ -29,6 +33,10 @@
   display: flex;
   gap: 40px;
   align-items: center;
+}
+
+.navbar-right img {
+  cursor: pointer;
 }
 
 .navbar button {
@@ -61,6 +69,7 @@
 
 .navbar-search-icon img {
   width: 24px;
+  cursor: pointer;
 }
 
 .navbar-search-icon .dot {

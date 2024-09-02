@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import { useStoreContext } from "../../context/StoreContext";
+import toast from "react-hot-toast";
 
 const Navbar = ({ setShowLogin }) => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Navbar = ({ setShowLogin }) => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      if (scrollTop > 100) {
+      if (scrollTop > 50) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -23,6 +24,15 @@ const Navbar = ({ setShowLogin }) => {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const scrollToById = (id) => {
+    const element = document.getElementById(id);
+    if (!element) return;
+    window.scroll({
+      top: element.offsetTop,
+      behavior: "smooth",
+    });
+  };
   return (
     <div className={`navbar ${!scrolled ? "" : "scrolled"}`}>
       <img
@@ -30,46 +40,75 @@ const Navbar = ({ setShowLogin }) => {
         alt=""
         className="logo"
         onClick={() => {
+          setMenu("home");
           navigate("/");
-          window.scrollTo(0, 0);
+          scrollToById("home");
         }}
       />
       <ul className="navbar-menu">
-        <Link
-          to={"/"}
-          onClick={() => setMenu("home")}
+        <a
+          onClick={() => {
+            setMenu("home");
+            navigate("/");
+            scrollToById("home");
+          }}
           className={menu === "home" ? "active" : ""}
         >
           Home
-        </Link>
-        <Link
-          to="/#explore-menu"
-          onClick={() => setMenu("menu")}
+        </a>
+        <a
+          onClick={() => {
+            setMenu("menu");
+            navigate("/");
+            scrollToById("explore-menu");
+          }}
           className={menu === "menu" ? "active" : ""}
         >
           Menu
-        </Link>
-        <Link
-          to="/#app-download"
-          onClick={() => setMenu("mobile-app")}
+        </a>
+        <a
+          onClick={() => {
+            setMenu("mobile-app");
+            navigate("/");
+            scrollToById("app-download");
+          }}
           className={menu === "mobile-app" ? "active" : ""}
         >
           Mobile-App
-        </Link>
-        <Link
-          to="/#footer"
-          onClick={() => setMenu("contact-us")}
+        </a>
+        <a
+          onClick={() => {
+            setMenu("contact-us");
+            navigate("/");
+            scrollToById("footer");
+          }}
           className={menu === "contact-us" ? "active" : ""}
         >
           Contact Us
-        </Link>
+        </a>
       </ul>
       <div className="navbar-right">
-        <img src={assets.search_icon} alt="" />
+        <img
+          src={assets.search_icon}
+          onClick={() => toast.error("Search filter does not work on demo.")}
+          alt=""
+        />
         <div className="navbar-search-icon">
-          <Link to={"/cart"}>
-            <img src={assets.basket_icon} alt="" />
-          </Link>
+          <img
+            src={assets.basket_icon}
+            onClick={() => {
+              if (getTotalCartAmount() === 0) {
+                toast.error("Select any food first!");
+                setMenu("menu");
+                navigate("/");
+                scrollToById("explore-menu");
+              } else {
+                navigate("/cart");
+              }
+            }}
+            alt=""
+          />
+
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
         <button
